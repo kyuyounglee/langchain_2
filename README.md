@@ -85,6 +85,17 @@ https://code.visualstudio.com/Download
 15. 명령팔레트(CTRL+SHIFT+P)를 실행합니다. / Python: Select Interpreter를 선택합니다. Conda 가상환경 (langchain_part_2)을 선택합니다.  
 
 
+https://www.pinecone.io/_next/image/?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fvr8gru94%2Fproduction%2Fffc1bd17088006b246799f2c10872ff68fdcb609-1522x1160.png&w=1920&q=75
+
+https://www.pinecone.io/_next/image/?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fvr8gru94%2Fproduction%2F9a4dc90a3dd063fabbfa8481ed63faee5e7ea045-1770x776.png&w=1920&q=75
+
+https://www.pinecone.io/_next/image/?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fvr8gru94%2Fproduction%2F16d192aac65c918a8bd554fcff022541b49498cb-1999x955.png&w=2048&q=75
+
+https://www.pinecone.io/
+
+https://python.langchain.com/assets/images/rag_indexing-8160f90a90a33253d0154659cf7d453f.png
+
+
 
 
 [ 수업 종료 전 체크리스트 ]
