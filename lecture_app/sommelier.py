@@ -1,15 +1,12 @@
 from dotenv import load_dotenv
-
-
-
 import os
-from langchain_core.prompts import ChatPromptTemplate, HumanMessagePromptTemplate
-from langchain_core.output_parsers import StrOutputParser
-
 from langchain_openai import ChatOpenAI
 from langchain_openai import OpenAIEmbeddings
 from langchain_pinecone import PineconeVectorStore
+from langchain_core.prompts import ChatPromptTemplate, HumanMessagePromptTemplate
+from langchain_core.output_parsers import StrOutputParser
 import base64
+
 
 load_dotenv()
 
@@ -25,11 +22,6 @@ PINECONE_INDEX_METRIC = os.getenv("PINECONE_INDEX_METRIC")
 PINECONE_INDEX_DIMENSION = int(os.getenv("PINECONE_INDEX_DIMENSION"))
 
 
-
-from langchain_openai import ChatOpenAI
-from langchain_openai import OpenAIEmbeddings
-from langchain_pinecone import PineconeVectorStore
-
 llm = ChatOpenAI(model=OPENAI_LLM_MODEL, temperature=0.2, openai_api_key=OPENAI_API_KEY)
 embeddings = OpenAIEmbeddings(model=OPENAI_EMBEDDING_MODEL, openai_api_key=OPENAI_API_KEY)
 vector_store = PineconeVectorStore(
@@ -38,11 +30,13 @@ vector_store = PineconeVectorStore(
     pinecone_api_key=PINECONE_API_KEY
 )
 
-def describe_dish_flavor(image_bytes,query):
-    
-    data_url = f'data:image/jpeg;base64,{image_bytes}'
+
+def describe_dish_flavor(image_bytes, query):
+    base64_str = base64.b64encode(image_bytes).decode("utf-8")
+    data_url = f"data:image/jpeg;base64,{base64_str}"
     messages = [
-        {"role":"system", 'content':"""
+        {"role": "system", 
+         "content": """
             Persona:
             As a flavor analysis system, I am equipped with a deep understanding of food ingredients, cooking methods, and sensory properties such as taste, texture, and aroma. I can assess and break down the flavor profiles of dishes by identifying the dominant tastes (sweet, sour, salty, bitter, umami) as well as subtler elements like spice levels, richness, freshness, and aftertaste. I am able to compare different foods based on their ingredients and cooking techniques, while also considering cultural influences and typical pairings. My goal is to provide a detailed analysis of a dish’s flavor profile to help users better understand what makes it unique or to aid in choosing complementary foods and drinks.
 
@@ -72,14 +66,14 @@ def describe_dish_flavor(image_bytes,query):
             For a rich chocolate cake, I would recommend a sweet dessert wine like Port to complement the bitterness of the chocolate, or a light espresso to contrast the sweetness and enhance the richness of the dessert.
 
         """},
-        {'role':'user','content':[
-            {'type':'text','text':query},
-            {'type':'image_url','image_url':{"url":data_url}}
+        {"role": "user", "content": [
+            {"type": "text", "text": query},
+            {"type": "image_url", "image_url": {"url": data_url}}
         ]}
-    ]    
+    ]
 
-    
     return llm.invoke(messages).content
+
 
 def search_wine(dish_flavor):
     results = vector_store.similarity_search(
@@ -91,6 +85,7 @@ def search_wine(dish_flavor):
         "dish_flavor": dish_flavor,
         "wine_reviews": "\n\n".join([doc.page_content for doc in results])
     }
+
 
 def recommand_wine(query):
     prompt = ChatPromptTemplate.from_messages([

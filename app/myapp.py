@@ -1,6 +1,5 @@
 import streamlit as st
-from sommeiler import search_wine, recommand_wine,describe_dish_flavor
-import time
+from mysommeiler import search_wine, recommand_wine,describe_dish_flavor
 import base64
 
 st.title('Sommelier AI')
