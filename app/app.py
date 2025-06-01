@@ -36,6 +36,11 @@ with col1:  # 같은 with 절은 동일하게 동작
                 st.text(wine_search_result['wine_reviews'])
 
             with st.spinner('3단계 : AI 소믈리에가 와인 페어링에 대한 추천 와인을 생성하는 중...'):
-                pass
+                wine_recommandation = recommand_wine({
+                    'dish_flavor' : dish_flavor,
+                    'wine_reviews' : wine_search_result['wine_reviews']
+                })
+                st.markdown('### AI 소믈리에의 와인 페어링 추천')
+                st.info(wine_recommandation)
 
             st.success('추천이 완료되었습니다!')
